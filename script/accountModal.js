@@ -24,7 +24,6 @@ function openEditModal(index) {
   editingIndex = index;
   const row = tableData[index];
 
-  // Populate the form fields
   document.getElementById("editKodeAcc").value = row["Kode Acc"] || "";
   document.getElementById("editNamaAcc").value = row["Nama Acc"] || "";
   document.getElementById("editCcy").value = row["Ccy"] || "";
@@ -35,6 +34,10 @@ function openEditModal(index) {
   document.getElementById("editGainLoss").value = row["Gain loss"] || "";
   document.getElementById("editControlAcc").value = row["Control Acc"] || "";
   document.getElementById("editParentAcc").value = row["Parent Acc"] || "";
+
+  if (parseFloat(document.getElementById("editGroupName").value) === 1) {
+    enableDisableFieldAccType(true);
+  }
   // Show the modal
   document.getElementById("editModal").style.display = "flex";
 }
