@@ -83,26 +83,29 @@ function validateForm() {
     isValid = false;
   }
 
-  if (ccy) {
-    const selectedCurrency = currencies.find(
-      (currency) => currency.code === ccy.value
-    );
+  const selectedCurrency = currencies.find(
+    (currency) => currency.code === ccy.value
+  );
 
-    if (selectedCurrency && selectedCurrency.std) {
-      document.getElementById("editGainLossError").textContent =
-        "Currency is using the standard, please use the others";
-      document.getElementById("editGainLossError").style.display = "block";
-      isValid = false;
-    }
+  if (
+    selectedCurrency &&
+    selectedCurrency.std &&
+    document.getElementById("editCurrencyModal").style.display === "none"
+  ) {
+    document.getElementById("editGainLossError").textContent =
+      "Currency is using the standard, please use the others";
+    document.getElementById("editGainLossError").style.display = "block";
+    isValid = false;
   }
 
-  if (document.getElementById("editStdCcy").checked) {
-    if (document.getElementById("editRateCcy") !== 1.0) {
-      document.getElementById("editStdCcyError").textContent =
-        "STD currency must have a rate of 1.";
-      document.getElementById("editStdCcyError").style.display = "block";
-      isValid = false;
-    }
+  if (
+    document.getElementById("editStdCcy").checked &&
+    parseFloat(document.getElementById("editRateCcy").value) !== 1
+  ) {
+    document.getElementById("editStdCcyError").textContent =
+      "STD currency must have a rate of 1.";
+    document.getElementById("editStdCcyError").style.display = "block";
+    isValid = false;
   }
 
   if (!document.getElementById("editCcyCode").value) {

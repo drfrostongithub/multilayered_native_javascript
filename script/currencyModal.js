@@ -43,6 +43,9 @@ function loadCurrencyList() {
 
     row.addEventListener("click", () => {
       document.getElementById("editCcy").value = currency.code;
+      document.getElementById(
+        "currencySelect"
+      ).value = `${currency.code} Selected !`;
     });
   });
 }

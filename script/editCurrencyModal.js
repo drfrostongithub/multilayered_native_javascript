@@ -39,7 +39,6 @@ function saveCurrencyChanges() {
       alert("Duplicate currency code found!");
       return;
     }
-
     currencies.unshift({
       code: ccyCode,
       name: ccyName,
@@ -62,7 +61,6 @@ function saveCurrencyChanges() {
       });
     }
   }
-  console.log(currencies);
 
   closeEditCurrencyModal();
   loadCurrencyList();
