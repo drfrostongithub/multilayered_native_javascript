@@ -1,3 +1,5 @@
+let isCreating = false;
+
 // Open Modal for Creating
 function openCreateModal() {
   isCreating = true; // This is a creation
@@ -37,7 +39,7 @@ function openEditModal(index) {
   document.getElementById("editModal").style.display = "flex";
 }
 
-function closeModal() {
+function closeAccountModal() {
   document.getElementById("editModal").style.display = "none";
   isCreating = false;
 }
@@ -88,6 +90,6 @@ function saveChanges() {
       }
     });
   }
-  closeModal();
+  closeAccountModal();
   displayTable(tableData);
 }

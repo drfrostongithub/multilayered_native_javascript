@@ -184,3 +184,9 @@ input:disabled, select:disabled {
   cursor: pointer;
   background-color: #B9BFC4;
 }
+
+#editCurrencyId {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

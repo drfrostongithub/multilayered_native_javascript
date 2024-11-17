@@ -95,5 +95,32 @@ function validateForm() {
       isValid = false;
     }
   }
+
+  if (document.getElementById("editStdCcy").checked) {
+    if (document.getElementById("editRateCcy") !== 1.0) {
+      document.getElementById("editStdCcyError").textContent =
+        "STD currency must have a rate of 1.";
+      document.getElementById("editStdCcyError").style.display = "block";
+      isValid = false;
+    }
+  }
+
+  if (!document.getElementById("editCcyCode").value) {
+    document.getElementById("editCcyCodeError").textContent = "Cannot be Empty";
+    document.getElementById("editCcyCodeError").style.display = "block";
+    isValid = false;
+  }
+
+  if (!document.getElementById("editNameCcy").value) {
+    document.getElementById("editNameCcyError").textContent = "Cannot be Empty";
+    document.getElementById("editNameCcyError").style.display = "block";
+    isValid = false;
+  }
+
+  if (!document.getElementById("editRateCcy").value) {
+    document.getElementById("editRateCcyError").textContent = "Cannot be Empty";
+    document.getElementById("editRateCcyError").style.display = "block";
+    isValid = false;
+  }
   return isValid;
 }

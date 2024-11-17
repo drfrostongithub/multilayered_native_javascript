@@ -38,7 +38,7 @@
         <div id="editModal" class="modal">
             <div class="modal-content">
                 <span class="close-button"
-                    onclick="closeModal()">×</span>
+                    onclick="closeAccountModal()">×</span>
                 <h2>Edit Account</h2>
 
                 <form id="editForm"
@@ -154,7 +154,7 @@
                             for="editCcy">Currency:</label>
                         <input type="text" id="editCcy"
                             maxlength="3" required
-                            onclick="openAccountModal()">
+                            onclick="openCurrencyModal()">
                         </input>
                         <small id="editCcyError"
                             class="error-message"></small>
@@ -182,7 +182,7 @@
                         <button type="button"
                             onclick="saveChanges()">Save</button>
                         <button type="button"
-                            onclick="closeModal()">Cancel</button>
+                            onclick="closeAccountModal()">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -193,6 +193,9 @@
                 <span class="close-button"
                     onclick="closeCurrencyModal()">×</span>
                 <h2>Select Currency</h2>
+                <button type="button"
+                    onclick="openCreateCurrency()">Add
+                    Currency</button>
                 <table>
                     <thead>
                         <tr>
@@ -200,6 +203,7 @@
                             <th>Currency Name</th>
                             <th>Rate</th>
                             <th>STD</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -207,6 +211,44 @@
                 </table>
                 <button type="button"
                     onclick="closeCurrencyModal()">Close</button>
+            </div>
+        </div>
+
+        <div id="editCurrencyModal" class="modal">
+            <div class="modal-content">
+                <h2>Edit Currency</h2>
+                <form>
+                    <div id="editCurrencyId">
+                        <label
+                            for="editCcyCode">Code:</label>
+                        <input type="text" id="editCcyCode"
+                            maxlength="3" required>
+                        <small id="editCcyCodeError"
+                            class="error-message"></small>
+                        <label
+                            for="editNameCcy">Name:</label>
+                        <input type="text" id="editNameCcy"
+                            maxlength="30" required>
+                        <small id="editNameCcyError"
+                            class="error-message"></small>
+                        <label
+                            for="editRateCcy">Rate:</label>
+                        <input type="number"
+                            id="editRateCcy" step="0.000001"
+                            required>
+                        <small id="editRateCcyError"
+                            class="error-message"></small>
+                        <label for="editStdCcy">STD:</label>
+                        <input type="checkbox"
+                            id="editStdCcy">
+                        <small id="editStdCcyError"
+                            class="error-message"></small>
+                        <button type="button"
+                            onclick="saveCurrencyChanges()">Save</button>
+                        <button type="button"
+                            onclick="closeEditCurrencyModal()">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -220,6 +262,8 @@
         <script src="/script/paging.js"></script>
         <script src="/script/sort.js"></script>
         <script src="/script/accountModal.js"></script>
+        <script src="/script/editCurrencyModal.js"></script>
+
 
     </body>
 
