@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+        <title>Data Table with CRUD</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <h2>Data Table</h2>
+        <button onclick="openCreateModal()">Create New
+            Data</button>
+        <input type="text" id="searchInput"
+            placeholder="Search...">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Kode Acc</th>
+                    <th>Nama Acc</th>
+                    <th>Ccy</th>
+                    <th>Group Name</th>
+                    <th>Acc Type</th>
+                    <th>Level</th>
+                    <th>Dept</th>
+                    <th>Gain loss</th>
+                    <th>Control Acc</th>
+                    <th>Parent Acc</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="pagination"></div>
+
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button"
+                    onclick="closeModal()">×</span>
+                <h2>Edit Account</h2>
+
+                <form id="editForm"
+                    onsubmit="return validateForm()">
+                    <div class="form-row">
+                        <label for="editKodeAcc">Acc
+                            Code:</label>
+                        <input type="text" id="editKodeAcc"
+                            maxlength="20" step="0.01"
+                            required />
+                        <small id="editKodeAccError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editNamaAcc">Acc
+                            Name:</label>
+                        <input type="text" id="editNamaAcc"
+                            maxlength="100" required />
+                        <small id="editNamaAccError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editAccType">Acc
+                            Type:</label>
+                        <select id="editAccType"
+                            onchange="toggleFieldsBasedOnAccType()">
+                            <option value="G">General
+                            </option>
+                            <option value="D">Detail
+                            </option>
+                        </select>
+                        <small id="editAccTypeError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label
+                            for="editLevel">Level:</label>
+                        <input type="number" id="editLevel"
+                            min="1" max="9" required
+                            onchange="adjustFieldsBasedOnLevel()" />
+                        <small id="editLevelError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editParentAcc">Parent
+                            Acc:</label>
+                        <input type="text"
+                            id="editParentAcc"
+                            maxlength="20" step="0.01"
+                            required />
+                        <small id="editParentAccError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editGroupName">Acc
+                            Group:</label>
+                        <select id="editGroupName" required>
+                            <option value="1">Assets
+                            </option>
+                            <option value="2">
+                                Liabilitas
+                            </option>
+                            <option value="3">Capital
+                            </option>
+                            <option value="4">Revenue
+                            </option>
+                            <option value="5">COGS
+                            </option>
+                            <option value="6">
+                                Expenses
+                            </option>
+                            <option value="7">
+                                Other
+                                Revenue</option>
+                            <option value="8">
+                                Other
+                                Expenses</option>
+                        </select>
+                        <small id="editGroupNameError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editControlAcc">Acc
+                            Control:</label>
+                        <select id="editControlAcc">
+                            <option value="0">None
+                            </option>
+                            <option value="1">
+                                Cash/Bank
+                            </option>
+                            <option value="2">
+                                Acc.
+                                Receivable</option>
+                            <option value="3">Acc
+                                Payable
+                            </option>
+                            <option value="4">
+                                Fixed Asset
+                            </option>
+                        </select>
+                        <small id="editControlAccError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label
+                            for="editCcy">Currency:</label>
+                        <input type="text" id="editCcy"
+                            maxlength="3" required
+                            onclick="openAccountModal()">
+                        </input>
+                        <small id="editCcyError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label
+                            for="editDept">Department:</label>
+                        <input type="checkbox"
+                            id="editDept" />
+                        <small id="editDeptError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="editGainLoss">Gain
+                            Loss:</label>
+                        <input type="checkbox"
+                            id="editGainLoss" />
+                        <small id="editGainLossError"
+                            class="error-message"></small>
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="button"
+                            onclick="saveChanges()">Save</button>
+                        <button type="button"
+                            onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="currencyModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button"
+                    onclick="closeCurrencyModal()">×</span>
+                <h2>Select Currency</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ccy</th>
+                            <th>Currency Name</th>
+                            <th>Rate</th>
+                            <th>STD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <button type="button"
+                    onclick="closeCurrencyModal()">Close</button>
+            </div>
+        </div>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+        <script src="/script/table.js"></script>
+        <script src="/script/currencyModal.js"></script>
+        <script src="/script/validation.js"></script>
+        <script src="/script/behavior.js"></script>
+        <script src="/script/search.js"></script>
+        <script src="/script/paging.js"></script>
+        <script src="/script/sort.js"></script>
+        <script src="/script/accountModal.js"></script>
+
+    </body>
+
+</html>
